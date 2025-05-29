@@ -1,0 +1,22 @@
+#! /bin/bash
+# SATS/LT1 Sniffer configuration and install script for RHEL
+# Version 3.0.3
+# DHL Express Italy 2022
+# Requiremets: TSHARK for live capture and SCAPY for Offline pcap analysis
+# For info, please contact alberto.biasibtti@dhl.com
+echo ""
+echo "[*] Stop Snigio and NXLOG"
+systemctl stop snigio && systemctl stop nxlog
+systemctl status snigio
+systemctl status nxlog
+echo  ""
+echo "[*] Dalete temp file and capture over 4 days"
+rm -r /var/log/SNIGIO3/snigio3.log
+find /home/capture/ -mtime +3 -delete
+echo ""
+echo "[*] Start Snigio and NXLOG"
+echo ""
+systemctl start snigio && systemctl start nxlog
+systemctl status snigio
+systemctl status nxlog
+echo ""
